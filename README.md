@@ -5,6 +5,7 @@ Code from the book "fork() as Weapons of Mass Destruction"
 NASM compiler was used to run the code.
 
 Assembly parameters:
+
 without optimize methods
 ```
 nasm -f elf fork_bomb_linux.asm
