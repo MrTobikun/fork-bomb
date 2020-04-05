@@ -15,7 +15,7 @@ gcc -m32 fork_bomb_linux.o -o fork_bomb_linux
 with size optimize methods
 ```
 nasm -f elf fork_bomb_linux.asm
-gcc -m32 -Os -s -g0 -fdata-sections -ffunction-sections -W --data-sections fork_bomb_linux.o -o fork_bomb_linux
+gcc -m32 -Os -s -g0 -fdata-sections -ffunction-sections -W --data-sections -fno-asynchronous-unwind-tables fork_bomb_linux.o -o fork_bomb_linux
 ```
 
 Build platform only Linux.
