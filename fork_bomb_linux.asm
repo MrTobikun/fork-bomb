@@ -47,7 +47,7 @@ l_malloc:
 	mov ebx, 0                   ; BestFit Address 0=No fit found
 	.loop:
 		mov eax, [HeapStop]
-		sub eax, 4               ; Ensures last 4 bytes are not allocated
+		sub eax, 4               ; ensures last 4 bytes are not allocated
 		cmp esi, eax
 		jg .FixHeaders
 		
@@ -77,14 +77,14 @@ l_malloc:
 	
 	.GrowHeap:
 		mov ecx, [HeapStop]
-		mov	ebx, ecx
-		add	ebx, edi
+		mov ebx, ecx
+		add ebx, edi
 		mov eax, 45
-		int	80h
+		int 80h
 		;cmp eax, 0
 		;jl .error
-		mov	[HeapStop], eax
-		sub	eax, [HeapStart]
+		mov [HeapStop], eax
+		sub eax, [HeapStart]
 		mov [HeapSize], eax
 		mov eax, [HeapStart]
 		mov ebx, ecx
@@ -97,7 +97,7 @@ l_malloc:
 		cmp ebx, 0               ; was a best fit found in heap
 		je .GrowHeap
 		mov eax, [ebx]
-                                 ; what is This	add eax, 8	;If current block size is <= 8 bytes 
+                                 ; what is This	add eax, 8	; if current block size is <= 8 bytes 
                                  ; bigger than required block size
 		cmp eax, edi             ; compare cur size + 8 to req size
 		jle .KeepBlockSize       ; keep block size
@@ -132,19 +132,19 @@ l_malloc:
 
 	.CreateHeap:
 		xor ebx, ebx
-		mov	eax, 45			     ; system call #45 sys_brk
-		int	80h                  ; checks initial break
+		mov eax, 45			     ; system call #45 sys_brk
+		int 80h                  ; checks initial break
 		;cmp eax, 0
 		;jl .error               ; exit, if error
-		mov	[HeapStart], eax
+		mov [HeapStart], eax
 		mov ebx, [HEAPMAX]
-		add	ebx, eax
+		add ebx, eax
 		mov eax, 45
-		int	80h
-		mov	[HeapStop], eax
-		;cmp	eax, 0
+		int 80h
+		mov [HeapStop], eax
+		;cmp eax, 0
 		;jl .error
-		sub	eax, [HeapStart]
+		sub eax, [HeapStart]
 		mov [HeapSize], eax
 		mov byte [HeapInit], 1
 		mov eax, [HeapStart]
